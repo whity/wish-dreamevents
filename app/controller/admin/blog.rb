@@ -168,12 +168,6 @@ module WDE
                                     form_errors[key] = errors[key][0]
                                 end
                             end
-                            
-                            ###save post###
-                            #todo: check if is valid
-                            #post.save()
-                            
-                            #return [true]
                         elsif (post) #entering in form, if editing set post data
                             form_data.each() do |key, value|
                                 form_data[key] = post.send(key)
