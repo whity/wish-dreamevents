@@ -1,0 +1,40 @@
+Eventish
+
+    - tb_calendars
+        . id
+        . name
+        . color
+        
+    - tb_events
+        . id
+        . calendar_id
+        . rule_id
+        . title
+        . description
+        . start_date
+        . start_time
+        . end_date
+        . end_time
+    
+    /****- tb_repeat
+        . id
+        . type    (weekly, daily, yearly)
+        . every   (n weeks, n days, n years)
+        . specific_days
+        . range ****/
+    
+    - tb_reminders
+        . id
+        . event_id
+        . type
+        . value
+        . unit
+        
+ - usar 'FullCalendar' para mostrar os eventos
+ - home, mostra no calendário todos os eventos (todos os calendários) por mês
+ 
+ - tb_rules (ice_cube)
+   - frequency (daily, monthly, yearly, etc)
+   - interval  (2 days, 1 month, 4 years)
+   - by_day    (WEDNESDAY, 1MONDAY)
+   - ends      (nil = never, [date])
