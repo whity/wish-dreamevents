@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+  <head>
+    <title><%= @title %></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="/public/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css" />
+    <script type="text/javascript" src="/public/js/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/public/js/pagination_css.js"></script>
+  </head>
+    <body>
+        <div id="page">
+            <div id="header">
+                <img src="/public/images/wish_2.png" width="900px" alt="wish.dreamevents" />
+            </div>
+            
+            <div id="nav">
+                <%= self.menu_widget() %>
+            </div>
+            <div id="main">
+                <div id="content-wrapper">
+                    <div id="content">
+                        <%= yield %>
+                    </div>
+                </div>
+                <div id="sidebar-wrapper">
+                    <div id="sidebar">
+                        <% @sidebar_widgets.each() do |wdg| %>
+                            <%= self.send(wdg.to_sym()) %>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+        <div id="footer-wrapper">
+            <div id="footer">
+                Copyright &copy; <%= Time.now().strftime("%Y") %>
+                wish.dreamevents. All rights reserved |
+                <a href="mailto:wish.dreamevents@gmail.com">Contacto</a> |
+                Powered by <a href="http://www.sinatrarb.com/">sinatra</a>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,8 @@
+<ul>
+    <% menu_items.each() do |item| %>
+        <% selected = @menu_selected == item['id'] ? 'selected' : '' %>
+        <li class="<%= selected %>">
+            <a href="/<%= item['id'] ? item['id'] + '/' : ''%>"><%= item['label'] %></a>
+        </li>
+    <% end %>
+</ul>

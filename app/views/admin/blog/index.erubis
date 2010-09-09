@@ -1,0 +1,34 @@
+<%= partial("top-bar".to_sym(), {:locals => {}}) %>
+<br />
+<% if (flash[:message]) %>
+    <%= flash[:message] %>
+<% end %>
+<div class="select-bar">
+    <%= self.admin_blog_form_filters(default_status) %> 
+    
+    <!-- <label>
+        <input type="text" name="textfield" />
+    </label>
+    <label>
+        <input type="submit" name="Submit" value="Search" />
+    </label> -->
+</div>
+<%= partial("blog/list".to_sym(), {:locals => {:posts        => posts,
+                                               :total_pages  => total_pages,
+                                               :current_page => current_page,
+                                               :filter_data  => filter_data
+                                              }})
+%>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#lnkDeletePosts').bind('click', function(event) {
+            var $frm = $('#frmPostList');
+            $('input[name=action]', $frm).val('delete');
+            
+            $frm.submit();
+            
+            return false;
+        });
+    });
+</script>

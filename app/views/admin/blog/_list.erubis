@@ -1,0 +1,56 @@
+<form method="post" id="frmPostList">
+    <input type="hidden" name="_submit" value="1">
+    <input type="hidden" name="action" value="">
+    <input type="hidden" name="status" value="<%= filter_data[:status] %>">
+    <input type="hidden" name="query" value="<%= filter_data[:query] %>">
+    <input type="hidden" name="page" value="<%= current_page %>">
+
+    <div class="table">
+        <img src="/public/images/admin/bg-th-left.gif" width="8" height="7" alt="" class="left" />
+        <img src="/public/images/admin/bg-th-right.gif" width="7" height="7" alt="" class="right" />
+        <table class="listing" cellpadding="0" cellspacing="0">
+            <tr>
+                <th class="first">(select)</th>
+                <th width="177">title</th>
+                <th>status</th>
+                <th>updated by</th>
+                <th>updated</th>
+                <th class="last">actions</th>
+            </tr>
+            <% posts.each() do |post| %>
+                <tr>
+                    <td class="first style1"><input type="checkbox" value="<%= post.id %>" name="selected[]" /></td>
+                    <td class="first style1"><%= post.title %></td>
+                    <td class="first style1"><%= post.status.to_s() %></td>
+                    <td class="first style1"><%= post.updated_by %></td>
+                    <td class="first style1"><%= post.updated %></td>
+                    <td class="last">
+                        <a href="/admin/blog/edit/<%= post.id %>/">
+                            <img src="/public/images/admin/edit-icon.gif" width="16" height="16" alt="" title="edit" />
+                        </a>
+                        <!-- <img src="/public/images/admin/add-icon.gif" width="16" height="16" alt="add" /> -->
+                    </td>
+                    
+                    <!-- <td><img src="img/add-icon.gif" width="16" height="16" alt="" /></td>
+                    <td><img src="img/hr.gif" width="16" height="16" alt="" /></td>
+                    <td><img src="img/save-icon.gif" width="16" height="16" alt="" /></td>
+                    <td><img src="img/edit-icon.gif" width="16" height="16" alt="" /></td>
+                    <td><img src="img/login-icon.gif" width="16" height="16" alt="" /></td>
+                    <td><img src="img/save-icon.gif" width="16" height="16" alt="save" /></td>
+                    <td class="last"><img src="img/add-icon.gif" width="16" height="16" alt="add" /></td> -->
+                </tr>
+            <% end %>
+        </table>
+        <div class="select">
+            <%= partial("/paginator".to_sym(), {:locals => {:total_pages    => total_pages,
+                                                            :current_page   => current_page,
+                                                            :pager_callback => "blog_change_page"
+                                                            }})
+            %>
+            <!-- <strong>Other Pages: </strong>
+            <select>
+                <option>1</option>
+            </select> -->
+      </div>
+    </div>
+</form>

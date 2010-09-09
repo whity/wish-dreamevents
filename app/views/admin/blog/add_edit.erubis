@@ -1,0 +1,56 @@
+<%= partial("top-bar".to_sym(), {:locals => {:show_button => false,
+                                             :extra_title => extra_title
+                                            }}
+           )
+%>
+
+<% if (!form_errors.empty?()) %>
+    <div class="errors_list">
+        <div>
+            You have the following errors:
+        </div>
+        <ul>
+            <% [:title, :text].each() do |field| %>
+                <% if (form_errors.has_key?(field)) %>
+                    <li><%= form_errors[field] %></li>
+                <% end %>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+
+<br />
+<form method="post">
+    <input type="hidden" name="_submit" value="1" />
+    Title: <br />
+    <input type="text" name="title" value="<%= form_data[:title] %>" size="60" />
+    <br />
+    Text: <br />
+    <textarea name="text" class="jquery_ckeditor"><%= form_data[:text] %></textarea>
+    <br />
+    Status: <br />
+    <select name="status">
+        <% available_status.each() do |value| %>
+            <% if (!value) %> <% next %> <% end %>
+            <% selected = (value == form_data[:status].to_sym()) ? 'selected' : '' %>
+            <option value="<%= value.to_s() %>" <%= selected %>><%= value.to_s() %></option>
+        <% end %>
+    </select>
+    <br /> <br />
+    <input type="submit" name="action" value="save" />
+    <br />
+</form>
+
+<script type="text/javascript">
+    var config = {
+        'toolbar':
+        [
+            ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink'],
+            ['UIColor']
+        ]
+    };
+
+    // Initialize the editor.
+    // Callback function can be passed and executed after full instance creation.
+    $('.jquery_ckeditor').ckeditor(config);
+</script>

@@ -1,0 +1,13 @@
+<form method="post" action="/admin/blog/">
+    <input type="hidden" value="1" name="_submit" />
+    status:
+    <select name="status">
+        <% available_status.each() do |value| %>
+            <% selected = form_data[:status] == value ? "selected" : '' %>
+            <option value="<%= value %>" <%= selected %>><%= value %></option>
+        <% end %>
+    </select>
+    in title/text:
+    <input type="text" value="<%= form_data[:query].encode_entities() %>" name="query" size="15" />
+    <input type="submit" value="search" name="action" />
+</form>

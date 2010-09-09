@@ -1,0 +1,13 @@
+<div class="box">
+    <h3>Posts mais recents</h3>
+    <ul>
+        <% posts.each() do |post| %>
+            <li>
+                <a href="/blog/view/<%= post.id %>">
+                    <%= post.title %>
+                </a>
+                (<%= post.updated %>)
+            </li>
+        <% end %>
+    </ul>
+</div>

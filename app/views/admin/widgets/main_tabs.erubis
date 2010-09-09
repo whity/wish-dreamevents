@@ -1,0 +1,10 @@
+<ul id="top-navigation">
+    <% tabs.each() do |item| %>
+        <% selected = @menu_selected == item['id'] ? 'active' : '' %>
+        <li class="<%= selected %>">
+            <span>
+                <span><a href="/admin<%= item['id'] ? "/#{ item['id'] }" : '' %>/"><%= item['label'] %></a></span>
+            </span>
+        </li>
+    <% end %>
+</ul>

@@ -1,0 +1,19 @@
+<% posts.each() do |post| %>
+    <div class="entry">
+        <h3>
+            <a href="/blog/view/<%= post.id %>">
+                <%= post.title %>
+            </a>
+        </h3>
+        <div class="posted">
+            inserido em <%= post.status_dt %> <br />
+            <% if (post.status_dt != post.updated)
+            %>
+                  actualizado em <%= post.updated %>
+            <% end %>
+        </div>
+        <p><%= post.summary %></p>
+    </div>
+<% end %>
+
+<%= partial("/paginator".to_sym(), {:locals => {:total_pages => total_pages, :current_page => current_page}}) %>

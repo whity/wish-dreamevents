@@ -1,0 +1,64 @@
+<form method="post">
+    <input type="hidden" name="_submit" value="1" /> 
+    
+    <table>
+        <tr>
+            <td>Title</td>
+            <td>
+                <input type="text" value="<%= form_data[:title] %>" name="title" size="44" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">Description</td>
+            <td>
+                <textarea name="description" cols="50" rows="5"><%= form_data[:description] %></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>All day</td>
+            <td>
+                <input id="frmEvAllDay" type="checkbox" name="all_day" value="1" />
+            </td>
+        </tr>
+        <tr>
+            <td>Start</td>
+            <td>
+                <input id="frmEvStartDate" type="text" name="start_date" value="<%= form_data[:start_date] %>" />
+                <input id="frmEvStartTime" type="text" name="start_time" value="<%= form_data[:start_time] %>" />
+            </td>
+        </tr>
+        <tr>
+            <td>End</td>
+            <td>
+                <input id="frmEvEndDate" type="text" name="end_date" value="<%= form_data[:end_date] %>" />
+                <input type="text" name="end_time" value="<%= form_data[:end_time] %>" />
+            </td>
+        </tr>
+    </table>
+    
+    <input type="submit" value="submit" />
+</form>
+
+<script type="text/javascript">
+    $(function() {
+        //set datepickers
+        var datepickers = ["frmEvStartDate", "frmEvEndDate"];
+        $.each(datepickers, function(idx, value) {
+            $('#' + value).datepicker({'dateFormat': 'yy-mm-dd'});
+        });
+        
+        $('#frmEvAllDay').bind('click', function(event) {
+            var value = this.checked;
+            
+            if (value == true)
+            {
+                //disable start/end date and time
+                                
+            }
+            else
+            {
+                //enable start/end date and time
+            }
+        });
+	});
+</script>

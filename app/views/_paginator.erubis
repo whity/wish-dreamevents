@@ -1,0 +1,23 @@
+<% if (total_pages > 1) %>
+    <div class="paginator">
+        <div id="divPaginator" class="center"></div>
+    </div>
+    <script type="text/javascript">
+        var pager_options = {/*'first_text'    : 'primeira',
+                             'last_text'     : '&uacute;ltima',*/
+                             /*'first_and_last': true*/
+                            };
+        
+        <% if (locals.has_key?(:pager_callback)) %>
+            pager_options['callback'] = <%= pager_callback %>;
+        <% end %>
+        
+    
+        var paging = new Pagination(<%= total_pages %>, //number of pages
+                                    5,
+                                    <%= current_page %>,
+                                    pager_options
+                                    );
+        paging.render("divPaginator");
+    </script>
+<% end %>

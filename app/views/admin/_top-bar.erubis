@@ -1,0 +1,21 @@
+<div class="top-bar">
+    <% if (!locals.has_key?(:show_button) || (locals.has_key?(:show_button) && show_button)) %>
+        <a href="/admin/<%= @menu_selected %>/add/" class="button">ADD NEW </a>
+    <% end %>
+    <h1>
+        <%= @menu_selected.capitalize() %>
+        <% if (locals.has_key?(:extra_title)) %>
+            <%= extra_title %>
+        <% end %>
+    </h1>
+    <div class="breadcrumbs">
+        <a href="/admin/">Admin</a> /
+        <a href="/admin/<%= @menu_selected %>"><%= @menu_selected.capitalize() %></a>
+        <% if (locals.has_key?(:extra_breadcrum)) %>
+            /
+            <a href="/admin/<%= @menu_selected %>/<%= extra_breadcrum[:url] %>">
+                <%= extra_breadcrum[:text] %>
+            </a>
+        <% end %>
+    </div>
+</div>
