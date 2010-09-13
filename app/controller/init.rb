@@ -12,9 +12,9 @@ module WDE
             helpers(Sinatra::Partials)
             
             #controller config
-            set(:root, WDE.current_dir())
+            set(:root, WDE.app().current_dir())
             set(:static, true)
-            set(:environment, WDE.current_environment())
+            set(:environment, WDE.app().env())
             #set(:raise_errors, false)
             set(:show_exceptions, false)
             
@@ -78,7 +78,7 @@ end
 
 # Here go your requires for subclasses of Controller:
 #controllers folder
-ctrl_folder = WDE.current_dir('controller')
+ctrl_folder = WDE.app().current_dir() + 'controller/'
 
 #controllers to load
 ctrl_files = ['main',

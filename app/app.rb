@@ -6,47 +6,89 @@ require('rexml/parsers/pullparser')
 require('erubis')
 require('i18n')
 require('sanitize')
+require('singleton')
+require('yaml')
 
 module WDE
-    def self.current_dir(folder = nil)
-        path = File.dirname(__FILE__) + "/"
-        if (folder != nil)
-            path += folder + "/"
+    class App
+        include(Singleton)
+        
+        #constructor
+        def initialize()
         end
         
-        return path
-    end
-    
-    def self.current_environment()
-        return :production
-    end
-    
-    def self.load_I18n(args={})
-        if (args && args.has_key?('reload') && args['reload'])
-            I18n.reload!()
-        else
-            #set i18n backend
-            I18n.backend = I18n::Backend::Simple.new()
+        #init app
+        def init(env=:development)
+            #environment
+            @_env = env
+            if (!@_env.instance_of?(Symbol))
+                @_env = @_env.to_sym()
+            end
             
-            #load translation files
-            i18n_dir = self.current_dir('i18n')
-            I18n.load_path = Dir.glob("#{ i18n_dir }*.yml")
+            #current_dir
+            @_cur_dir = self._current_dir()
+            
+            #read config file
+            @_config = YAML.load_file("#{ @_cur_dir }etc/#{ @_env.to_s() }.yaml")
+            
+            #init I18n
+            self.load_I18n()
+            
+            return self
         end
         
-        return true
+        def current_dir()
+            return @_cur_dir
+        end
+        
+        def env()
+            return @_env
+        end
+        
+        def config()
+            return @_config.clone()
+        end
+        
+        def load_I18n(args={})
+            if (args && args.has_key?('reload') && args['reload'])
+                I18n.reload!()
+            else
+                #set i18n backend
+                I18n.backend = I18n::Backend::Simple.new()
+                
+                #load translation files
+                i18n_dir = self.current_dir() + 'i18n/'
+                I18n.load_path = Dir.glob("#{ i18n_dir }*.yml")
+            end
+            
+            return true
+        end
+        
+        protected
+        
+            def _current_dir()
+                path = File.dirname(__FILE__) + "/"
+                
+                return path
+            end
+    end
+    
+    def self.init_app(env)
+        return App.instance().init(env)
+    end
+    
+    def self.app()
+        return App.instance()
     end
 end
 
-#get current dir
-cur_dir = WDE.current_dir()
+#init app
+WDE.init_app(:development)
 
 #require libs
-require("#{ cur_dir }lib/common")
-require("#{ cur_dir }lib/user_auth")
+require("#{ WDE.app().current_dir() }lib/common")
+require("#{ WDE.app().current_dir() }lib/user_auth")
 
 # Initialize controllers and models
-require("#{ cur_dir }model/init")
-require("#{ cur_dir }controller/init")
-
-#init I18n
-WDE.load_I18n()
+require("#{ WDE.app().current_dir() }model/init")
+require("#{ WDE.app().current_dir() }controller/init")

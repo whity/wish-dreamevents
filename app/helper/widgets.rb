@@ -24,7 +24,8 @@ module WDE
             
             def blog_archive_widget()
                 archives = repository(:default).adapter.select('SELECT DISTINCT (substr(status_dt, 1, 7))' \
-                                                               + ' FROM tb_contents ORDER BY status_dt desc')
+                                                               + ' FROM tb_contents WHERE status = 3' \
+                                                               + ' ORDER BY status_dt desc')
                 
                 #convert each archive item to Time object
                 total_items = archives.length

@@ -12,7 +12,7 @@ require('dm-types')
 
 # Here go your requires for model classes:
 #controllers folder
-model_folder = WDE.current_dir('model')
+model_folder = WDE.app().current_dir() + 'model/'
 
 #controllers to load
 model_files = ['base',
@@ -29,10 +29,8 @@ end
 ###
 
 #database setup
-app_db_dsn = 'mysql://wish:wish@localhost/wishdreamevents?encoding=UTF-8'
-if (WDE.current_environment() == :development)
-    app_db_dsn = 'mysql://localhost/wishdreamevents?encoding=UTF-8'
+if (WDE.app().env() == :development)
     DataMapper::Logger.new(STDOUT, :debug)
 end
 
-DataMapper.setup(:default, app_db_dsn)
+DataMapper.setup(:default, WDE.app().config()['dsn'])
