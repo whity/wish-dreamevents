@@ -1,0 +1,2 @@
+---
+dsn: mysql://localhost/wishdreamevents?encoding=UTF-8
